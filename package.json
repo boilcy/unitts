@@ -1,0 +1,48 @@
+{
+  "name": "unitts",
+  "version": "0.0.1",
+  "description": "The TypeScript library for unified TTS client",
+  "author": "boilcy <0x6c6379@gmail.com>",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "**/*"
+  ],
+  "scripts": {
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:watch": "vitest watch",
+    "clean": "rm -rf dist",
+    "build": "tsc --project tsconfig.build.json && node scripts/prepare-dist.js",
+    "build:watch": "tsc --project tsconfig.build.json --watch",
+    "prepublishOnly": "pnpm build",
+    "publish:local": "pnpm build && cd dist && pnpm publish",
+    "publish:dry": "pnpm build && cd dist && pnpm publish --dry-run",
+    "format": "prettier --write .",
+    "tsn": "ts-node -r tsconfig-paths/register"
+  },
+  "keywords": [
+    "text-to-speech"
+  ],
+  "license": "MIT",
+  "packageManager": "pnpm@10.12.1+sha512.f0dda8580f0ee9481c5c79a1d927b9164f2c478e90992ad268bbb2465a736984391d6333d2c327913578b2804af33474ca554ba29c04a8b13060a717675ae3ac",
+  "devDependencies": {
+    "@types/node": "^24.0.4",
+    "@types/uuid": "^10.0.0",
+    "@types/ws": "^8.18.1",
+    "@typescript-eslint/eslint-plugin": "^8.35.0",
+    "@typescript-eslint/parser": "^8.35.0",
+    "dotenv": "^16.3.1",
+    "eslint": "^9.29.0",
+    "eslint-plugin-prettier": "^5.5.1",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "prettier": "^3.6.1",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.35.0",
+    "vitest": "^1.6.0"
+  },
+  "dependencies": {
+    "uuid": "^11.1.0",
+    "ws": "^8.18.2"
+  }
+}

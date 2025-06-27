@@ -1,0 +1,12 @@
+.cursor/
+.env
+.env.*
+.vscode/
+
+temp/
+
+node_modules/
+
+test_results/
+
+dist/
