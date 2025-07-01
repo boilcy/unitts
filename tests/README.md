@@ -31,9 +31,11 @@ tests/
 │   └── testHelpers.ts     # 测试工具函数
 ├── ttsRelay.test.ts       # 核心TTS中继测试
 ├── adapters/
-│   └── minimax.test.ts    # Minimax适配器测试
+│   ├── minimax.test.ts    # Minimax适配器测试
+│   └── tencent.test.ts    # 腾讯云适配器测试
 ├── clients/
-│   └── minimax.test.ts    # Minimax客户端测试
+│   ├── minimax.test.ts    # Minimax客户端测试
+│   └── tencent.test.ts    # 腾讯云客户端测试
 ├── middleware/
 │   └── logging.test.ts    # 日志中间件测试
 ├── types/

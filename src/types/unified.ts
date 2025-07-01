@@ -82,9 +82,11 @@ export interface UnifiedTTSTextChunk {
 }
 
 import type { MinimaxTTSParams } from '../clients/minimax/minimaxTypes';
+import type { TencentTTSParams } from '../clients/tencent/tencentTypes';
 
 export interface ProviderExtraParams {
   minimax: Partial<MinimaxTTSParams>;
+  tencent: Partial<TencentTTSParams>;
 }
 
 export type ProviderName = keyof ProviderExtraParams;

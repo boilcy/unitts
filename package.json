@@ -1,6 +1,6 @@
 {
   "name": "unitts",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "The TypeScript library for unified TTS client",
   "author": "boilcy <0x6c6379@gmail.com>",
   "repository": {
@@ -46,6 +46,7 @@
     "vitest": "^1.6.0"
   },
   "dependencies": {
+    "@elevenlabs/elevenlabs-js": "^2.4.1",
     "uuid": "^11.1.0",
     "ws": "^8.18.2"
   }

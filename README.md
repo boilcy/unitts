@@ -57,12 +57,12 @@ console.log('音频数据:', result.data); // Base64编码的音频数据
 
 目前支持以下TTS服务提供商：
 
-| 提供商 | 状态 | 描述 |
-|--------|------|------|
-| [Minimax](https://www.minimaxi.com/) | ✅ 支持 | 海螺AI的TTS服务 |
-| OpenAI | 🚧 开发中 | GPT系列的TTS服务 |
-| Anthropic | 🚧 开发中 | Claude的TTS服务 |
-| Google Gemini | 🚧 开发中 | Gemini的TTS服务 |
+| 提供商                               | 状态      | 描述             |
+| ------------------------------------ | --------- | ---------------- |
+| [Minimax](https://www.minimaxi.com/) | ✅ 支持   | 海螺AI的TTS服务  |
+| OpenAI                               | 🚧 开发中 | GPT系列的TTS服务 |
+| Anthropic                            | 🚧 开发中 | Claude的TTS服务  |
+| Google Gemini                        | 🚧 开发中 | Gemini的TTS服务  |
 
 ## 🔧 使用示例
 
@@ -102,19 +102,15 @@ async function* textGenerator() {
   const sentences = ['你好，', '欢迎使用', '统一TTS服务！'];
   for (const sentence of sentences) {
     yield sentence;
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
   }
 }
 
-const stream = ttsRelay.synthesizeIncremental(
-  'minimax',
-  textGenerator(),
-  {
-    voice: 'female-tianmei',
-    model: 'speech-02-hd',
-    format: 'mp3',
-  }
-);
+const stream = ttsRelay.synthesizeIncremental('minimax', textGenerator(), {
+  voice: 'female-tianmei',
+  model: 'speech-02-hd',
+  format: 'mp3',
+});
 
 for await (const chunk of stream) {
   console.log('增量音频片段:', chunk.id);
@@ -152,10 +148,8 @@ const result = await ttsRelay.synthesize('minimax', {
     speed: 1.2,
     vol: 0.8,
     pitch: 0,
-    timber_weights: [
-      { voice_id: 'female-tianmei', weight: 1 }
-    ]
-  }
+    timber_weights: [{ voice_id: 'female-tianmei', weight: 1 }],
+  },
 });
 ```
 
@@ -178,17 +172,17 @@ const result = await ttsRelay.synthesize('minimax', {
 
 ```typescript
 interface UnifiedTTSParams {
-  text: string;           // 要合成的文本
-  model?: string;         // 模型名称
-  voice?: string;         // 声音ID
-  pitch?: number;         // 音调 (-20 到 20)
-  emotion?: string;       // 情感
-  rate?: number;          // 语速 (0.5 到 2.0)
-  volume?: number;        // 音量 (0 到 1)
-  format?: string;        // 音频格式 (mp3, wav, pcm等)
-  sampleRate?: number;    // 采样率
-  stream?: boolean;       // 是否流式输出
-  extra?: any;           // 提供商特定参数
+  text: string; // 要合成的文本
+  model?: string; // 模型名称
+  voice?: string; // 声音ID
+  pitch?: number; // 音调 (-20 到 20)
+  emotion?: string; // 情感
+  rate?: number; // 语速 (0.5 到 2.0)
+  volume?: number; // 音量 (0 到 1)
+  format?: string; // 音频格式 (mp3, wav, pcm等)
+  sampleRate?: number; // 采样率
+  stream?: boolean; // 是否流式输出
+  extra?: any; // 提供商特定参数
 }
 ```
 
@@ -196,13 +190,13 @@ interface UnifiedTTSParams {
 
 ```typescript
 interface UnifiedTTSAudio {
-  id: string;                    // 音频ID
-  data: string;                  // Base64编码的音频数据
-  model?: string;                // 使用的模型
-  object: 'tts.audio';          // 对象类型
+  id: string; // 音频ID
+  data: string; // Base64编码的音频数据
+  model?: string; // 使用的模型
+  object: 'tts.audio'; // 对象类型
   metadata?: Record<string, any>; // 元数据
-  final: boolean;               // 是否为最终片段
-  originalResponse?: any;       // 原始响应
+  final: boolean; // 是否为最终片段
+  originalResponse?: any; // 原始响应
 }
 ```
 
@@ -269,7 +263,7 @@ pnpm clean
 
 ## 👨‍💻 作者
 
-- **boilcy** - *项目创建者* - [0x6c6379@gmail.com](mailto:0x6c6379@gmail.com)
+- **boilcy** - _项目创建者_ - [0x6c6379@gmail.com](mailto:0x6c6379@gmail.com)
 
 ## 🙏 致谢
 

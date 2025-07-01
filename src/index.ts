@@ -3,3 +3,4 @@ export * from './clients';
 export * from './ttsRelay';
 export * from './types';
 export * from './adapters';
+export * from './helpers';

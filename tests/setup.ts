@@ -9,4 +9,7 @@ export const testConfig = {
   OPENAI_API_KEY: process.env['OPENAI_API_KEY'] || '',
   ANTHROPIC_API_KEY: process.env['ANTHROPIC_API_KEY'] || '',
   GOOGLE_API_KEY: process.env['GOOGLE_API_KEY'] || '',
+  TENCENT_APP_ID: process.env['TENCENT_APP_ID'] || '',
+  TENCENT_SECRET_ID: process.env['TENCENT_SECRET_ID'] || '',
+  TENCENT_SECRET_KEY: process.env['TENCENT_SECRET_KEY'] || '',
 };
