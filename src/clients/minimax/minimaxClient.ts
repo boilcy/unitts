@@ -7,6 +7,7 @@ import type {
   MinimaxTTSChunk,
   WSMinimaxTTSResponse,
 } from './minimaxTypes';
+import { requiresNodeEnvironment } from '../../helpers/ws';
 
 export class MinimaxClient implements IRawTTSClient<MinimaxTTSParams, MinimaxTTSResponse, MinimaxTTSChunk> {
   constructor(
@@ -122,6 +123,9 @@ export class MinimaxClient implements IRawTTSClient<MinimaxTTSParams, MinimaxTTS
     const wsUrl = 'wss://api.minimax.chat/ws/v1/t2a_v2';
 
     // Create WebSocket connection
+    // need custom headers, so check the environment
+    requiresNodeEnvironment();
+
     const ws = new WebSocket(wsUrl, {
       headers: {
         Authorization: `Bearer ${this.apiKey}`,
@@ -270,7 +274,6 @@ export class MinimaxClient implements IRawTTSClient<MinimaxTTSParams, MinimaxTTS
 
         // Send task finish after all text chunks are sent
         ws.send(JSON.stringify({ event: 'task_finish' }));
-        ws.close();
       })();
 
       // Handle errors during text processing
@@ -279,7 +282,6 @@ export class MinimaxClient implements IRawTTSClient<MinimaxTTSParams, MinimaxTTS
         error = err instanceof Error ? err : new Error('Failed to process text stream');
         if (ws.readyState === WebSocket.OPEN) {
           ws.send(JSON.stringify({ event: 'task_finish' }));
-          ws.close();
         }
       });
 
@@ -309,8 +311,6 @@ export class MinimaxClient implements IRawTTSClient<MinimaxTTSParams, MinimaxTTS
           }
         }
       }
-    } catch (err) {
-      throw err;
     } finally {
       // Ensure WebSocket is closed
       if (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING) {

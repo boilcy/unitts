@@ -1,6 +1,6 @@
 {
   "name": "unitts",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "The TypeScript library for unified TTS client",
   "author": "boilcy <0x6c6379@gmail.com>",
   "repository": {
@@ -20,7 +20,7 @@
     "build": "tsc --project tsconfig.build.json && node scripts/prepare-dist.js",
     "build:watch": "tsc --project tsconfig.build.json --watch",
     "prepublishOnly": "pnpm build",
-    "publish:local": "pnpm build && cd dist && pnpm publish",
+    "publish": "pnpm build && cd dist && pnpm publish",
     "publish:dry": "pnpm build && cd dist && pnpm publish --dry-run",
     "format": "prettier --write .",
     "tsn": "ts-node -r tsconfig-paths/register"
@@ -40,14 +40,21 @@
     "eslint": "^9.29.0",
     "eslint-plugin-prettier": "^5.5.1",
     "eslint-plugin-unused-imports": "^4.1.4",
+    "jsdom": "^26.1.0",
     "prettier": "^3.6.1",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.35.0",
     "vitest": "^1.6.0"
   },
   "dependencies": {
+    "uuid": "^11.1.0"
+  },
+  "optionalDependencies": {
     "@elevenlabs/elevenlabs-js": "^2.4.1",
-    "uuid": "^11.1.0",
+    "ws": "^8.18.2"
+  },
+  "peerDependencies": {
+    "@elevenlabs/elevenlabs-js": "^2.4.1",
     "ws": "^8.18.2"
   }
 }

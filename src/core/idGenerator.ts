@@ -28,3 +28,7 @@ export class IdGenerator {
 }
 
 export const uuidv4Generator = new IdGenerator('id#', uuidv4);
+
+export function generateId(): string {
+  return uuidv4Generator.nextId();
+}

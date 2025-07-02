@@ -12,4 +12,5 @@ export const testConfig = {
   TENCENT_APP_ID: process.env['TENCENT_APP_ID'] || '',
   TENCENT_SECRET_ID: process.env['TENCENT_SECRET_ID'] || '',
   TENCENT_SECRET_KEY: process.env['TENCENT_SECRET_KEY'] || '',
+  ELEVENLABS_API_KEY: process.env['ELEVENLABS_API_KEY'] || '',
 };

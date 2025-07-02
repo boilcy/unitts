@@ -83,13 +83,15 @@ export interface UnifiedTTSTextChunk {
 
 import type { MinimaxTTSParams } from '../clients/minimax/minimaxTypes';
 import type { TencentTTSParams } from '../clients/tencent/tencentTypes';
+import type { TextToSpeechRequestUnion as ElevenLabsTTSParams } from '../clients/elevenlabs/elevenlabsTypes';
 
 export interface ProviderExtraParams {
   minimax: Partial<MinimaxTTSParams>;
   tencent: Partial<TencentTTSParams>;
+  elevenlabs: Partial<ElevenLabsTTSParams>;
 }
 
-export type ProviderName = keyof ProviderExtraParams;
+export type ProviderName = 'minimax' | 'tencent' | 'elevenlabs';
 
 export interface UnifiedTTSParams<TProvider extends ProviderName = any> {
   text: string;
@@ -105,6 +107,8 @@ export interface UnifiedTTSParams<TProvider extends ProviderName = any> {
   sampleRate?: number;
   /** 是否流式输出 */
   stream?: boolean;
+  /** 是否使用timestamps */
+  withTimestamps?: boolean;
 
   /**
    * Provider特定的额外参数

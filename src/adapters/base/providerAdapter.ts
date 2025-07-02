@@ -8,9 +8,7 @@ import type {
 } from '../../types/unified';
 import type { IRawTTSClient } from '../../types/clients';
 
-export abstract class BaseProviderAdapter<TParams, TResponse, TChunk>
-  implements IProviderAdapter<TParams, TResponse, TChunk>
-{
+export abstract class BaseProviderAdapter<TParams, TResponse, TChunk> implements IProviderAdapter {
   constructor(
     protected client: IRawTTSClient<TParams, TResponse, TChunk>,
     protected parameterAdapter: IParameterAdapter<UnifiedTTSParams, TParams>,

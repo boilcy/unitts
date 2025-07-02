@@ -1,4 +1,3 @@
-import WebSocket from 'ws';
 import crypto from 'node:crypto';
 import { v4 as uuidv4 } from 'uuid';
 import type { IRawTTSClient } from '../../types/clients';
@@ -13,6 +12,7 @@ import type {
   TencentTTSIncrementalResponse,
 } from './tencentTypes';
 import { blobToBase64 } from '../../helpers/audio';
+import { isBrowser } from '../../helpers/environment';
 
 export class TencentClient implements IRawTTSClient<TencentTTSParams, TencentTTSResponse, TencentTTSChunk> {
   constructor(private auth: TencentAuth) {}
@@ -176,7 +176,7 @@ export class TencentClient implements IRawTTSClient<TencentTTSParams, TencentTTS
         }
       } else {
         // 后续chunk，直接添加到音频数据
-        const combined = new Uint8Array(data.length + value.length);
+        const combined: Uint8Array = new Uint8Array(data.length + value.length);
         combined.set(data);
         combined.set(value, data.length);
         data = combined;
@@ -245,9 +245,15 @@ export class TencentClient implements IRawTTSClient<TencentTTSParams, TencentTTS
     const wsUrl = this.createWebSocketUrl(wsParams, signature);
 
     // 连接 WebSocket
-    const ws = new WebSocket(wsUrl, {
-      signal: options?.signal,
-    });
+    let ws: WebSocket;
+    if (isBrowser()) {
+      ws = new WebSocket(wsUrl);
+    } else {
+      const WebSocket = require('ws');
+      ws = new WebSocket(wsUrl, {
+        signal: options?.signal,
+      });
+    }
 
     // 使用简化的队列和等待系统
     const chunkQueue: TencentTTSChunk[] = [];
@@ -414,9 +420,15 @@ export class TencentClient implements IRawTTSClient<TencentTTSParams, TencentTTS
     const wsUrl = this.createWebSocketUrl(wsParams, signature, '/stream_wsv2');
 
     // 连接 WebSocket
-    const ws = new WebSocket(wsUrl, {
-      signal: options?.signal,
-    });
+    let ws: WebSocket;
+    if (isBrowser()) {
+      ws = new WebSocket(wsUrl);
+    } else {
+      const WebSocket = require('ws');
+      ws = new WebSocket(wsUrl, {
+        signal: options?.signal,
+      });
+    }
 
     // 状态管理
     const chunkQueue: TencentTTSChunk[] = [];

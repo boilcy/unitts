@@ -18,7 +18,7 @@ export interface IResponseAdapter<TProviderResponse, TUnifiedResponse> {
 }
 
 // 供应商适配器接口
-export interface IProviderAdapter<TParams, TResponse, TChunk> {
+export interface IProviderAdapter {
   getProviderName(): string;
 
   synthesize(params: UnifiedTTSParams, options?: UnifiedTTSOptions): Promise<UnifiedTTSAudio>;

@@ -11,10 +11,10 @@ import type {
 } from './types/unified';
 
 export class TTSRelay {
-  private adapters: Map<ProviderName, IProviderAdapter<any, any, any>> = new Map();
+  private adapters: Map<ProviderName, IProviderAdapter> = new Map();
   private middleware: IMiddleware[] = [];
 
-  registerAdapter<P extends ProviderName>(providerName: P, adapter: IProviderAdapter<any, any, any>): void {
+  registerAdapter<P extends ProviderName>(providerName: P, adapter: IProviderAdapter): void {
     this.adapters.set(providerName, adapter);
   }
 
@@ -29,8 +29,14 @@ export class TTSRelay {
   ): Promise<UnifiedTTSAudio>;
 
   async synthesize(
-    provider: string,
-    params: UnifiedTTSParams,
+    provider: ProviderName,
+    params: UnifiedTTSParams<ProviderName>,
+    options?: UnifiedTTSOptions,
+  ): Promise<UnifiedTTSAudio>;
+
+  async synthesize<P extends ProviderName>(
+    provider: P,
+    params: UnifiedTTSParams<P>,
     options?: UnifiedTTSOptions,
   ): Promise<UnifiedTTSAudio> {
     const adapter = this.getAdapter(provider as ProviderName);
@@ -81,7 +87,7 @@ export class TTSRelay {
     return Array.from(this.adapters.keys());
   }
 
-  private getAdapter(provider: ProviderName): IProviderAdapter<any, any, any> {
+  private getAdapter<P extends ProviderName>(provider: P): IProviderAdapter {
     const adapter = this.adapters.get(provider);
     if (!adapter) {
       throw new Error(`Provider '${provider}' not found`);
